@@ -1,33 +1,31 @@
-import { id } from "@instantdb/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { Check, Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
-import { db } from "#/lib/db"
+import { lofi } from "#/db/lofi"
 
 export const Route = createFileRoute("/")({ component: Home })
 
 function addTodo(text: string) {
-  db.transact(
-    db.tx.todos[id()].create({
-      text,
-      done: false,
-      createdAt: Date.now(),
-    }),
-  )
+  lofi.insertItem("todos", {
+    id: crypto.randomUUID(),
+    text,
+    done: false,
+    createdAt: new Date(),
+  })
 }
 
 function toggleTodo(todoId: string, done: boolean) {
-  db.transact(db.tx.todos[todoId].update({ done: !done }))
+  lofi.updateItem("todos", todoId, { done: !done })
 }
 
 function deleteTodo(todoId: string) {
-  db.transact(db.tx.todos[todoId].delete())
+  lofi.deleteItem("todos", todoId)
 }
 
 function Home() {
   const [text, setText] = useState("")
-  const { isLoading, error, data } = db.useQuery({
-    todos: { $: { order: { createdAt: "desc" } } },
+  const { isLoading, status, isError, data } = lofi.useFindMany("todos", {
+    orderBy: { createdAt: "desc" },
   })
 
   const submit = () => {
@@ -67,13 +65,13 @@ function Home() {
 
         <section className="mt-6 space-y-2">
           {isLoading && <p className="text-neutral-400">Loading…</p>}
-          {error && <p className="text-red-500">Error: {error.message}</p>}
-          {data?.todos.length === 0 && (
+          {isError && <p className="text-red-500">Error: {status}</p>}
+          {data?.length === 0 && (
             <p className="py-8 text-center text-neutral-400">
               Nothing yet. Add your first todo above.
             </p>
           )}
-          {data?.todos.map((todo) => (
+          {data?.map((todo) => (
             <div
               key={todo.id}
               className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3"

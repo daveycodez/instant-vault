@@ -23,10 +23,13 @@ When using third party libraries, use Context7 MCP to look up the docs.
 
 ## Quality Gates
 
-Before completing any task, ensure all of the following pass:
+Before completing any task, run:
 
-1. **Biome** — No formatting errors in modified files
-2. **Linter** — No lint errors in the project
+```
+bun check --write
+```
+
+This runs `biome check --write` which handles both formatting and linting with auto-fixes in a single pass. Both must pass clean.
 
 ## GitHub Copilot Instructions
 
