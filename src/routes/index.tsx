@@ -1,5 +1,5 @@
 import { Button, Card } from "@heroui/react"
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import {
   ArrowRight,
   Clock,
@@ -65,9 +65,9 @@ function Home() {
               <Github size={16} />
               Star us
             </Button>
-            <Button size="sm" variant="primary">
+            <Link to="/dashboard" className="button button--primary">
               Dashboard
-            </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -92,10 +92,10 @@ function Home() {
           </div>
 
           <div className="flex gap-3">
-            <Button variant="primary" size="lg">
+            <Link to="/dashboard" className="button button--primary">
               Get Started
               <ArrowRight size={16} />
-            </Button>
+            </Link>
             <Button variant="secondary" size="lg">
               Learn More
             </Button>
