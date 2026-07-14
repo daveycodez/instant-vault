@@ -1,110 +1,135 @@
+import { Button, Card } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
-import { Check, Plus, Trash2 } from "lucide-react"
-import { useState } from "react"
-import { lofi } from "#/db/lofi"
+import {
+  ArrowRight,
+  Clock,
+  Database,
+  Github,
+  HardDrive,
+  Shield,
+} from "lucide-react"
+import { Logo } from "#/components/logo"
+
+const navLinks = ["Product", "Pricing", "Docs", "About"]
 
 export const Route = createFileRoute("/")({ component: Home })
 
-function addTodo(text: string) {
-  lofi.insertItem("todos", {
-    id: crypto.randomUUID(),
-    text,
-    done: false,
-    createdAt: new Date(),
-  })
-}
-
-function toggleTodo(todoId: string, done: boolean) {
-  lofi.updateItem("todos", todoId, { done: !done })
-}
-
-function deleteTodo(todoId: string) {
-  lofi.deleteItem("todos", todoId)
-}
+const features = [
+  {
+    icon: Database,
+    title: "One-Click Backup",
+    description:
+      "Create full database snapshots with a single click. Zero configuration required.",
+    accent: "bg-primary/10 text-primary",
+  },
+  {
+    icon: Clock,
+    title: "Auto Scheduling",
+    description:
+      "Set it and forget it. Automated daily, weekly, or custom backup schedules keep your data safe.",
+    accent: "bg-accent/10 text-accent",
+  },
+  {
+    icon: Shield,
+    title: "Instant Restore",
+    description:
+      "Restore any backup to any database in seconds. Point-in-time recovery included.",
+    accent: "bg-success/10 text-success",
+  },
+]
 
 function Home() {
-  const [text, setText] = useState("")
-  const { isLoading, status, isError, data } = lofi.useFindMany("todos", {
-    orderBy: { createdAt: "desc" },
-  })
-
-  const submit = () => {
-    const trimmed = text.trim()
-    if (!trimmed) return
-    addTodo(trimmed)
-    setText("")
-  }
-
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <main className="mx-auto max-w-xl px-6 py-16">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Instant Vault</h1>
-          <p className="mt-1 text-neutral-500">
-            A TanStack Start + InstantDB starter. Changes sync in real time.
-          </p>
-        </header>
+    <div className="flex min-h-screen flex-col bg-background">
+      {/* Header */}
+      <header className="flex justify-center border-b px-6">
+        <div className="flex w-full max-w-6xl items-center justify-between py-4">
+          <div className="flex items-center gap-2">
+            <Logo className="size-5" />
 
-        <div className="flex gap-2">
-          <input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && submit()}
-            placeholder="What needs doing?"
-            className="flex-1 rounded-lg border border-neutral-200 bg-white px-4 py-2.5 outline-none transition focus:border-neutral-400 focus:ring-2 focus:ring-neutral-200"
-          />
-          <button
-            type="button"
-            onClick={submit}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-neutral-900 px-4 py-2.5 font-medium text-white transition hover:bg-neutral-700"
-          >
-            <Plus size={18} />
-            Add
-          </button>
+            <span className="font-mono text-lg font-bold tracking-tight">
+              instantVault
+            </span>
+          </div>
+
+          <nav className="hidden items-center gap-1 md:flex">
+            {navLinks.map((label) => (
+              <Button key={label} size="sm" variant="ghost">
+                {label}
+              </Button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Button size="sm" variant="secondary">
+              <Github size={16} />
+              Star us
+            </Button>
+            <Button size="sm" variant="primary">
+              Dashboard
+            </Button>
+          </div>
         </div>
+      </header>
 
-        <section className="mt-6 space-y-2">
-          {isLoading && <p className="text-neutral-400">Loading…</p>}
-          {isError && <p className="text-red-500">Error: {status}</p>}
-          {data?.length === 0 && (
-            <p className="py-8 text-center text-neutral-400">
-              Nothing yet. Add your first todo above.
+      {/* Hero */}
+      <section className="flex flex-col items-center px-6 pt-24 pb-20 md:pt-32 md:pb-28">
+        <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
+          <div className="flex items-center gap-2 rounded-full bg-surface-secondary px-4 py-1.5">
+            <HardDrive size={14} className="text-muted" />
+            <span className="text-sm text-muted">Backups for InstantDB</span>
+          </div>
+
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="max-w-xl text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+              Never lose your <span className="text-primary">InstantDB</span>{" "}
+              data
+            </h1>
+            <p className="max-w-lg text-lg leading-relaxed text-muted">
+              Secure, automated backups for your InstantDB databases. Set it up
+              in seconds and sleep easy.
             </p>
-          )}
-          {data?.map((todo) => (
-            <div
-              key={todo.id}
-              className="group flex items-center gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3"
-            >
-              <button
-                type="button"
-                onClick={() => toggleTodo(todo.id, todo.done)}
-                className={`flex size-5 items-center justify-center rounded-md border transition ${
-                  todo.done
-                    ? "border-neutral-900 bg-neutral-900 text-white"
-                    : "border-neutral-300 hover:border-neutral-500"
-                }`}
+          </div>
+
+          <div className="flex gap-3">
+            <Button variant="primary" size="lg">
+              Get Started
+              <ArrowRight size={16} />
+            </Button>
+            <Button variant="secondary" size="lg">
+              Learn More
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="flex justify-center px-6 pb-28">
+        <div className="grid w-full max-w-4xl gap-6 md:grid-cols-3">
+          {features.map(({ icon: Icon, title, description, accent }) => (
+            <Card key={title} className="p-6">
+              <div
+                className={`mb-4 flex h-10 w-10 items-center justify-center rounded-lg ${accent}`}
               >
-                {todo.done && <Check size={14} />}
-              </button>
-              <span
-                className={`flex-1 ${
-                  todo.done ? "text-neutral-400 line-through" : ""
-                }`}
-              >
-                {todo.text}
-              </span>
-              <button
-                type="button"
-                onClick={() => deleteTodo(todo.id)}
-                className="text-neutral-300 opacity-0 transition hover:text-red-500 group-hover:opacity-100"
-              >
-                <Trash2 size={18} />
-              </button>
-            </div>
+                <Icon size={20} />
+              </div>
+              <Card.Header className="p-0">
+                <Card.Title className="text-base">{title}</Card.Title>
+                <Card.Description className="mt-1 text-sm leading-relaxed">
+                  {description}
+                </Card.Description>
+              </Card.Header>
+            </Card>
           ))}
-        </section>
-      </main>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-auto border-t py-8 text-center">
+        <p className="text-sm text-muted">
+          InstantVault &mdash; Backups for InstantDB
+        </p>
+      </footer>
     </div>
   )
 }

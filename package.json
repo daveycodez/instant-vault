@@ -16,6 +16,8 @@
     "check": "biome check"
   },
   "dependencies": {
+    "@heroui-pro/react": "^1.0.0-beta.7",
+    "@heroui/react": "^3.2.2",
     "@instantdb/core": "^1.0.49",
     "@instantdb/react": "^1.0.49",
     "@tailwindcss/vite": "^4.1.18",
