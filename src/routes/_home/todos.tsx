@@ -12,7 +12,7 @@ import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
 import { lofi } from "#/db/lofi"
 
-export const Route = createFileRoute("/todos")({ component: Todos })
+export const Route = createFileRoute("/_home/todos")({ component: Todos })
 
 function addTodo(text: string) {
   lofi.insertItem("todos", {
@@ -44,7 +44,7 @@ function Todos() {
   }
 
   return (
-    <div className="flex min-h-screen items-start justify-center bg-background px-6 py-16">
+    <div className="flex items-start justify-center px-6 py-16">
       <main className="w-full max-w-xl">
         <Card className="p-8">
           <Card.Header>
@@ -68,55 +68,44 @@ function Todos() {
             </Button>
           </Card.Content>
 
-          <Card.Content className="mt-4">
-            {isLoading && (
-              <div className="flex justify-center py-8">
-                <Spinner />
-              </div>
-            )}
-            {isError && (
-              <p className="py-4 text-center text-danger">
-                Error: {String(status)}
+          <Card.Content>
+            {isLoading ? (
+              <Spinner size="sm" />
+            ) : status === "error" || isError ? (
+              <p className="text-sm text-danger">
+                Failed to load todos. Try refreshing.
               </p>
-            )}
-            {data?.length === 0 && (
-              <p className="py-8 text-center text-muted">
-                Nothing yet. Add your first todo above.
-              </p>
-            )}
-            <div className="space-y-1">
-              {data?.map((todo) => (
-                <div
-                  key={todo.id}
-                  className="group flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-surface-secondary"
-                >
-                  <Checkbox
-                    isSelected={todo.done}
-                    onChange={() => toggleTodo(todo.id, todo.done)}
+            ) : (
+              <ul className="space-y-2">
+                {data?.map((todo) => (
+                  <li
+                    key={todo.id}
+                    className="flex items-center justify-between gap-3 rounded-lg border border-border p-3"
                   >
-                    <Checkbox.Content>
-                      <Checkbox.Control>
-                        <Checkbox.Indicator />
-                      </Checkbox.Control>
+                    <div className="flex items-center gap-3">
+                      <Checkbox
+                        isSelected={todo.done}
+                        onChange={() => toggleTodo(todo.id, todo.done)}
+                        aria-label={`Mark "${todo.text}" as ${todo.done ? "incomplete" : "complete"}`}
+                      />
                       <span
-                        className={todo.done ? "text-muted line-through" : ""}
+                        className={`text-sm ${todo.done ? "text-muted line-through" : ""}`}
                       >
                         {todo.text}
                       </span>
-                    </Checkbox.Content>
-                  </Checkbox>
-                  <Button
-                    isIconOnly
-                    className="ml-auto opacity-0 group-hover:opacity-100"
-                    size="sm"
-                    variant="ghost"
-                    onPress={() => deleteTodo(todo.id)}
-                  >
-                    <TrashBin />
-                  </Button>
-                </div>
-              ))}
-            </div>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      aria-label={`Delete "${todo.text}"`}
+                      onPress={() => deleteTodo(todo.id)}
+                    >
+                      <TrashBin size={14} />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Card.Content>
         </Card>
       </main>

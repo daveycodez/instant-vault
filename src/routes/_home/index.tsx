@@ -4,15 +4,11 @@ import {
   Database,
   HardDrive,
   Shield,
-  Star,
 } from "@gravity-ui/icons"
 import { Button, Card } from "@heroui/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { Logo } from "#/components/logo"
 
-const navLinks = ["Product", "Pricing", "Docs", "About"]
-
-export const Route = createFileRoute("/")({ component: Home })
+export const Route = createFileRoute("/_home/")({ component: Home })
 
 const features = [
   {
@@ -40,43 +36,12 @@ const features = [
 
 function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 flex justify-center bg-white px-6">
-        <div className="flex w-full max-w-6xl items-center justify-between py-4">
-          <div className="flex items-center gap-2">
-            <Logo className="size-5" />
-
-            <span className="font-mono text-lg font-bold tracking-tight">
-              instantVault
-            </span>
-          </div>
-
-          <nav className="hidden items-center gap-1 md:flex">
-            {navLinks.map((label) => (
-              <Button key={label} size="sm" variant="ghost">
-                {label}
-              </Button>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Button size="sm" variant="secondary">
-              <Star size={16} />
-              Star us
-            </Button>
-            <Link to="/dashboard" className="button button--primary">
-              Dashboard
-            </Link>
-          </div>
-        </div>
-      </header>
-
+    <>
       {/* Hero */}
       <section className="flex flex-col items-center px-6 pt-24 pb-20 md:pt-32 md:pb-28">
         <div className="flex max-w-2xl flex-col items-center gap-8 text-center">
           <div className="flex items-center gap-2 rounded-full bg-surface-secondary px-4 py-1.5">
-            <HardDrive size={14} className="text-muted" />
+            <HardDrive className="text-muted" />
             <span className="text-sm text-muted">Backups for InstantDB</span>
           </div>
 
@@ -94,7 +59,7 @@ function Home() {
           <div className="flex gap-3">
             <Link to="/dashboard" className="button button--primary">
               Get Started
-              <ArrowRight size={16} />
+              <ArrowRight />
             </Link>
             <Button variant="secondary" size="lg">
               Learn More
@@ -111,7 +76,7 @@ function Home() {
               <div
                 className={`mb-4 flex h-10 w-10 items-center justify-center rounded-lg ${accent}`}
               >
-                <Icon size={20} />
+                <Icon />
               </div>
               <Card.Header className="p-0">
                 <Card.Title className="text-base">{title}</Card.Title>
@@ -123,13 +88,6 @@ function Home() {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="mt-auto border-t py-8 text-center">
-        <p className="text-sm text-muted">
-          InstantVault &mdash; Backups for InstantDB
-        </p>
-      </footer>
-    </div>
+    </>
   )
 }

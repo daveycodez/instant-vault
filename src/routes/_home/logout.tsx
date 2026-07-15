@@ -3,7 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useEffect } from "react"
 import { db } from "#/db/db"
 
-export const Route = createFileRoute("/logout")({
+export const Route = createFileRoute("/_home/logout")({
   component: LogoutPage,
 })
 

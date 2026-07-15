@@ -9,48 +9,53 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TodosRouteImport } from './routes/todos'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as LogoutRouteImport } from './routes/logout'
-import { Route as LoginRouteImport } from './routes/login'
+import { Route as HomeRouteRouteImport } from './routes/_home/route'
 import { Route as DashboardRouteRouteImport } from './routes/_dashboard/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as HomeIndexRouteImport } from './routes/_home/index'
+import { Route as HomeTodosRouteImport } from './routes/_home/todos'
+import { Route as HomeTermsRouteImport } from './routes/_home/terms'
+import { Route as HomePrivacyRouteImport } from './routes/_home/privacy'
+import { Route as HomeLogoutRouteImport } from './routes/_home/logout'
+import { Route as HomeLoginRouteImport } from './routes/_home/login'
 import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
 
-const TodosRoute = TodosRouteImport.update({
-  id: '/todos',
-  path: '/todos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LogoutRoute = LogoutRouteImport.update({
-  id: '/logout',
-  path: '/logout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const HomeRouteRoute = HomeRouteRouteImport.update({
+  id: '/_home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/_dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const HomeIndexRoute = HomeIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+const HomeTodosRoute = HomeTodosRouteImport.update({
+  id: '/todos',
+  path: '/todos',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+const HomeTermsRoute = HomeTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+const HomePrivacyRoute = HomePrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+const HomeLogoutRoute = HomeLogoutRouteImport.update({
+  id: '/logout',
+  path: '/logout',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
+const HomeLoginRoute = HomeLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => HomeRouteRoute,
 } as any)
 const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
   id: '/dashboard',
@@ -59,98 +64,67 @@ const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
-  '/todos': typeof TodosRoute
+  '/': typeof HomeIndexRoute
   '/dashboard': typeof DashboardDashboardRoute
+  '/login': typeof HomeLoginRoute
+  '/logout': typeof HomeLogoutRoute
+  '/privacy': typeof HomePrivacyRoute
+  '/terms': typeof HomeTermsRoute
+  '/todos': typeof HomeTodosRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
-  '/todos': typeof TodosRoute
+  '/': typeof HomeIndexRoute
   '/dashboard': typeof DashboardDashboardRoute
+  '/login': typeof HomeLoginRoute
+  '/logout': typeof HomeLogoutRoute
+  '/privacy': typeof HomePrivacyRoute
+  '/terms': typeof HomeTermsRoute
+  '/todos': typeof HomeTodosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_dashboard': typeof DashboardRouteRouteWithChildren
-  '/login': typeof LoginRoute
-  '/logout': typeof LogoutRoute
-  '/privacy': typeof PrivacyRoute
-  '/terms': typeof TermsRoute
-  '/todos': typeof TodosRoute
+  '/_home': typeof HomeRouteRouteWithChildren
   '/_dashboard/dashboard': typeof DashboardDashboardRoute
+  '/_home/login': typeof HomeLoginRoute
+  '/_home/logout': typeof HomeLogoutRoute
+  '/_home/privacy': typeof HomePrivacyRoute
+  '/_home/terms': typeof HomeTermsRoute
+  '/_home/todos': typeof HomeTodosRoute
+  '/_home/': typeof HomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/login' | '/logout' | '/privacy' | '/terms' | '/todos' | '/dashboard'
+    '/' | '/dashboard' | '/login' | '/logout' | '/privacy' | '/terms' | '/todos'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/login' | '/logout' | '/privacy' | '/terms' | '/todos' | '/dashboard'
+    '/' | '/dashboard' | '/login' | '/logout' | '/privacy' | '/terms' | '/todos'
   id:
     | '__root__'
-    | '/'
     | '/_dashboard'
-    | '/login'
-    | '/logout'
-    | '/privacy'
-    | '/terms'
-    | '/todos'
+    | '/_home'
     | '/_dashboard/dashboard'
+    | '/_home/login'
+    | '/_home/logout'
+    | '/_home/privacy'
+    | '/_home/terms'
+    | '/_home/todos'
+    | '/_home/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
-  LoginRoute: typeof LoginRoute
-  LogoutRoute: typeof LogoutRoute
-  PrivacyRoute: typeof PrivacyRoute
-  TermsRoute: typeof TermsRoute
-  TodosRoute: typeof TodosRoute
+  HomeRouteRoute: typeof HomeRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/todos': {
-      id: '/todos'
-      path: '/todos'
-      fullPath: '/todos'
-      preLoaderRoute: typeof TodosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/logout': {
-      id: '/logout'
-      path: '/logout'
-      fullPath: '/logout'
-      preLoaderRoute: typeof LogoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/_home': {
+      id: '/_home'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof HomeRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_dashboard': {
@@ -160,12 +134,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_home/': {
+      id: '/_home/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/todos': {
+      id: '/_home/todos'
+      path: '/todos'
+      fullPath: '/todos'
+      preLoaderRoute: typeof HomeTodosRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/terms': {
+      id: '/_home/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof HomeTermsRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/privacy': {
+      id: '/_home/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof HomePrivacyRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/logout': {
+      id: '/_home/logout'
+      path: '/logout'
+      fullPath: '/logout'
+      preLoaderRoute: typeof HomeLogoutRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/login': {
+      id: '/_home/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof HomeLoginRouteImport
+      parentRoute: typeof HomeRouteRoute
     }
     '/_dashboard/dashboard': {
       id: '/_dashboard/dashboard'
@@ -189,14 +198,31 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
 )
 
+interface HomeRouteRouteChildren {
+  HomeLoginRoute: typeof HomeLoginRoute
+  HomeLogoutRoute: typeof HomeLogoutRoute
+  HomePrivacyRoute: typeof HomePrivacyRoute
+  HomeTermsRoute: typeof HomeTermsRoute
+  HomeTodosRoute: typeof HomeTodosRoute
+  HomeIndexRoute: typeof HomeIndexRoute
+}
+
+const HomeRouteRouteChildren: HomeRouteRouteChildren = {
+  HomeLoginRoute: HomeLoginRoute,
+  HomeLogoutRoute: HomeLogoutRoute,
+  HomePrivacyRoute: HomePrivacyRoute,
+  HomeTermsRoute: HomeTermsRoute,
+  HomeTodosRoute: HomeTodosRoute,
+  HomeIndexRoute: HomeIndexRoute,
+}
+
+const HomeRouteRouteWithChildren = HomeRouteRoute._addFileChildren(
+  HomeRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  LoginRoute: LoginRoute,
-  LogoutRoute: LogoutRoute,
-  PrivacyRoute: PrivacyRoute,
-  TermsRoute: TermsRoute,
-  TodosRoute: TodosRoute,
+  HomeRouteRoute: HomeRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
