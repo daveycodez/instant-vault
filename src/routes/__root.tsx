@@ -2,7 +2,7 @@ import { Toast } from "@heroui/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
-
+import { db } from "../db/db"
 import appCss from "../styles/app.css?url"
 
 export const Route = createRootRoute({
@@ -30,6 +30,8 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  db.useAuth()
+
   return (
     <html lang="en" className="bg-background text-foreground">
       <head>

@@ -1,5 +1,4 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
-
 import { AppShell } from "#/components/dashboard/app-shell"
 import { HomeFooter } from "#/components/home-footer"
 import { HomeHeader } from "#/components/home-header"
@@ -18,6 +17,7 @@ function DashboardLayout() {
           <Outlet />
         </AppShell>
       </db.SignedIn>
+
       <db.SignedOut>
         <div className="flex min-h-screen flex-col bg-background">
           <HomeHeader />
