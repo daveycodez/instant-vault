@@ -14,10 +14,10 @@ function LogoutPage() {
     db.auth
       .signOut()
       .then(() => {
-        navigate({ to: "/login" })
+        navigate({ to: "/login", replace: true })
       })
       .catch((error) => {
-        navigate({ to: "/" })
+        navigate({ to: "/", replace: true })
         toast.danger(error.body?.message)
       })
   }, [navigate])
