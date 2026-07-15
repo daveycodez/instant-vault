@@ -1,5 +1,5 @@
-import { Star } from "@gravity-ui/icons"
-import { Button } from "@heroui/react"
+import { LogoGithub } from "@gravity-ui/icons"
+import { Button, buttonVariants } from "@heroui/react"
 import { Link } from "@tanstack/react-router"
 import { Logo } from "#/components/logo"
 
@@ -25,11 +25,19 @@ export function HomeHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" variant="secondary">
-            <Star size={16} />
-            Star us
-          </Button>
-          <Link to="/dashboard" className="button button--primary">
+          <a
+            href="https://github.com/daveycodez/instant-vault"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={buttonVariants({
+              variant: "secondary",
+              isIconOnly: true,
+            })}
+          >
+            <LogoGithub className="me-[0.5px]" />
+          </a>
+
+          <Link to="/dashboard" className={buttonVariants()}>
             Dashboard
           </Link>
         </div>

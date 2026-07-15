@@ -13,4 +13,5 @@ export const db = init({
   appId,
   schema,
   useDateObjects: true,
+  devtool: false,
 })
