@@ -20,7 +20,7 @@ const features = [
     title: "One-Click Backup",
     description:
       "Create full database snapshots with a single click. Zero configuration required.",
-    accent: "bg-primary/10 text-primary",
+    accent: "bg-warning/10 text-warning",
   },
   {
     icon: Clock,
