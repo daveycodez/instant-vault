@@ -14,7 +14,7 @@ function LogoutPage() {
     db.auth
       .signOut()
       .then(() => {
-        navigate({ to: "/login", replace: true })
+        navigate({ to: "/", replace: true })
       })
       .catch((error) => {
         navigate({ to: "/", replace: true })

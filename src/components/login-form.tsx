@@ -9,13 +9,9 @@ import {
   TextField,
   toast,
 } from "@heroui/react"
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
 import { type SyntheticEvent, useEffect, useRef, useState } from "react"
-import { db } from "../../db/db"
-
-export const Route = createFileRoute("/_home/login")({
-  component: LoginPage,
-})
+import { db } from "../db/db"
 
 function GoogleIcon({ className }: { className?: string }) {
   return (
@@ -54,7 +50,7 @@ function GoogleIcon({ className }: { className?: string }) {
   )
 }
 
-function LoginPage() {
+export function LoginForm() {
   const [sentEmail, setSentEmail] = useState("")
 
   return (
@@ -156,7 +152,6 @@ function CodeStep({
   sentEmail: string
   setSentEmail: (email: string) => void
 }) {
-  const navigate = useNavigate()
   const formRef = useRef<HTMLFormElement>(null)
   const [code, setCode] = useState("")
   const [error, setError] = useState("")
@@ -181,9 +176,6 @@ function CodeStep({
           createdAt: new Date(),
           updatedAt: new Date(),
         },
-      })
-      .then(() => {
-        navigate({ to: "/" })
       })
       .catch((error) => {
         setCode("")
