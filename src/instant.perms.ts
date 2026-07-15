@@ -3,6 +3,12 @@
 import type { InstantRules } from "@instantdb/react"
 
 const rules = {
+  attrs: { allow: { $default: "false" } },
+  $users: {
+    allow: {
+      create: "true",
+    },
+  },
   todos: {
     allow: {
       view: "true",

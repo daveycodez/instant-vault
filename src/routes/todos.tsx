@@ -19,7 +19,6 @@ function addTodo(text: string) {
     id: crypto.randomUUID(),
     text,
     done: false,
-    createdAt: new Date(),
   })
 }
 
@@ -64,7 +63,7 @@ function Todos() {
               />
             </TextField>
             <Button variant="primary" onPress={submit}>
-              <Plus size={16} />
+              <Plus />
               Add
             </Button>
           </Card.Content>
@@ -113,7 +112,7 @@ function Todos() {
                     variant="ghost"
                     onPress={() => deleteTodo(todo.id)}
                   >
-                    <TrashBin size={16} />
+                    <TrashBin />
                   </Button>
                 </div>
               ))}

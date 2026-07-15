@@ -10,11 +10,17 @@ const _schema = i.schema({
     }),
     $users: i.entity({
       email: i.string().unique().indexed().optional(),
+      imageURL: i.string().optional(),
+      type: i.string<"user" | "guest" | "admin">().optional(),
+      name: i.string().optional(),
+      createdAt: i.date().optional().indexed(),
+      updatedAt: i.date().optional().indexed(),
     }),
     todos: i.entity({
       text: i.string(),
       done: i.boolean(),
       createdAt: i.date().indexed(),
+      updatedAt: i.date().indexed(),
     }),
   },
   links: {},

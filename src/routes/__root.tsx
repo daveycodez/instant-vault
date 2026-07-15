@@ -1,3 +1,4 @@
+import { Toast } from "@heroui/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
@@ -36,6 +37,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body className="font-sans antialiased">
         {children}
+        <Toast.Provider />
         <TanStackDevtools
           config={{
             position: "bottom-right",
