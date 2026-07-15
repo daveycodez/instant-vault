@@ -16,7 +16,10 @@ import { Route as HomeTodosRouteImport } from './routes/_home/todos'
 import { Route as HomeTermsRouteImport } from './routes/_home/terms'
 import { Route as HomePrivacyRouteImport } from './routes/_home/privacy'
 import { Route as HomeLogoutRouteImport } from './routes/_home/logout'
-import { Route as DashboardDashboardRouteImport } from './routes/_dashboard/dashboard'
+import { Route as DashboardDashboardIndexRouteImport } from './routes/_dashboard/dashboard/index'
+import { Route as DashboardDashboardSettingsRouteImport } from './routes/_dashboard/dashboard/settings'
+import { Route as DashboardDashboardBucketsRouteImport } from './routes/_dashboard/dashboard/buckets'
+import { Route as DashboardDashboardAppsRouteImport } from './routes/_dashboard/dashboard/apps'
 
 const HomeRouteRoute = HomeRouteRouteImport.update({
   id: '/_home',
@@ -51,54 +54,101 @@ const HomeLogoutRoute = HomeLogoutRouteImport.update({
   path: '/logout',
   getParentRoute: () => HomeRouteRoute,
 } as any)
-const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const DashboardDashboardIndexRoute = DashboardDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardDashboardSettingsRoute =
+  DashboardDashboardSettingsRouteImport.update({
+    id: '/dashboard/settings',
+    path: '/dashboard/settings',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardDashboardBucketsRoute =
+  DashboardDashboardBucketsRouteImport.update({
+    id: '/dashboard/buckets',
+    path: '/dashboard/buckets',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardDashboardAppsRoute = DashboardDashboardAppsRouteImport.update({
+  id: '/dashboard/apps',
+  path: '/dashboard/apps',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
-  '/dashboard': typeof DashboardDashboardRoute
   '/logout': typeof HomeLogoutRoute
   '/privacy': typeof HomePrivacyRoute
   '/terms': typeof HomeTermsRoute
   '/todos': typeof HomeTodosRoute
+  '/dashboard/apps': typeof DashboardDashboardAppsRoute
+  '/dashboard/buckets': typeof DashboardDashboardBucketsRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof HomeIndexRoute
-  '/dashboard': typeof DashboardDashboardRoute
   '/logout': typeof HomeLogoutRoute
   '/privacy': typeof HomePrivacyRoute
   '/terms': typeof HomeTermsRoute
   '/todos': typeof HomeTodosRoute
+  '/dashboard/apps': typeof DashboardDashboardAppsRoute
+  '/dashboard/buckets': typeof DashboardDashboardBucketsRoute
+  '/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/dashboard': typeof DashboardDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_dashboard': typeof DashboardRouteRouteWithChildren
   '/_home': typeof HomeRouteRouteWithChildren
-  '/_dashboard/dashboard': typeof DashboardDashboardRoute
   '/_home/logout': typeof HomeLogoutRoute
   '/_home/privacy': typeof HomePrivacyRoute
   '/_home/terms': typeof HomeTermsRoute
   '/_home/todos': typeof HomeTodosRoute
   '/_home/': typeof HomeIndexRoute
+  '/_dashboard/dashboard/apps': typeof DashboardDashboardAppsRoute
+  '/_dashboard/dashboard/buckets': typeof DashboardDashboardBucketsRoute
+  '/_dashboard/dashboard/settings': typeof DashboardDashboardSettingsRoute
+  '/_dashboard/dashboard/': typeof DashboardDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/logout' | '/privacy' | '/terms' | '/todos'
+  fullPaths:
+    | '/'
+    | '/logout'
+    | '/privacy'
+    | '/terms'
+    | '/todos'
+    | '/dashboard/apps'
+    | '/dashboard/buckets'
+    | '/dashboard/settings'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/logout' | '/privacy' | '/terms' | '/todos'
+  to:
+    | '/'
+    | '/logout'
+    | '/privacy'
+    | '/terms'
+    | '/todos'
+    | '/dashboard/apps'
+    | '/dashboard/buckets'
+    | '/dashboard/settings'
+    | '/dashboard'
   id:
     | '__root__'
     | '/_dashboard'
     | '/_home'
-    | '/_dashboard/dashboard'
     | '/_home/logout'
     | '/_home/privacy'
     | '/_home/terms'
     | '/_home/todos'
     | '/_home/'
+    | '/_dashboard/dashboard/apps'
+    | '/_dashboard/dashboard/buckets'
+    | '/_dashboard/dashboard/settings'
+    | '/_dashboard/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -157,22 +207,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeLogoutRouteImport
       parentRoute: typeof HomeRouteRoute
     }
-    '/_dashboard/dashboard': {
-      id: '/_dashboard/dashboard'
+    '/_dashboard/dashboard/': {
+      id: '/_dashboard/dashboard/'
       path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardDashboardRouteImport
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardDashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/dashboard/settings': {
+      id: '/_dashboard/dashboard/settings'
+      path: '/dashboard/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardDashboardSettingsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/dashboard/buckets': {
+      id: '/_dashboard/dashboard/buckets'
+      path: '/dashboard/buckets'
+      fullPath: '/dashboard/buckets'
+      preLoaderRoute: typeof DashboardDashboardBucketsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_dashboard/dashboard/apps': {
+      id: '/_dashboard/dashboard/apps'
+      path: '/dashboard/apps'
+      fullPath: '/dashboard/apps'
+      preLoaderRoute: typeof DashboardDashboardAppsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
   }
 }
 
 interface DashboardRouteRouteChildren {
-  DashboardDashboardRoute: typeof DashboardDashboardRoute
+  DashboardDashboardAppsRoute: typeof DashboardDashboardAppsRoute
+  DashboardDashboardBucketsRoute: typeof DashboardDashboardBucketsRoute
+  DashboardDashboardSettingsRoute: typeof DashboardDashboardSettingsRoute
+  DashboardDashboardIndexRoute: typeof DashboardDashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardDashboardRoute: DashboardDashboardRoute,
+  DashboardDashboardAppsRoute: DashboardDashboardAppsRoute,
+  DashboardDashboardBucketsRoute: DashboardDashboardBucketsRoute,
+  DashboardDashboardSettingsRoute: DashboardDashboardSettingsRoute,
+  DashboardDashboardIndexRoute: DashboardDashboardIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

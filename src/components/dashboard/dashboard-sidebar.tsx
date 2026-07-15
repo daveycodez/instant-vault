@@ -1,5 +1,6 @@
 import { Avatar, Chip } from "@heroui/react"
 import { Sidebar } from "@heroui-pro/react"
+import { db } from "#/db/db"
 import type { NavItem } from "./nav-items"
 
 import { FOOTER_ITEMS, NAV_ITEMS } from "./nav-items"
@@ -49,23 +50,24 @@ function SidebarContents({
   idPrefix = "",
   pathname,
 }: SidebarContentsProps) {
+  const { user } = db.useAuth()
+  const email = user?.email ?? ""
+  const displayName = email ? (email.split("@")[0] ?? email) : "Account"
+  const initials = email ? email.slice(0, 2).toUpperCase() : "IV"
+
   return (
     <>
       <Sidebar.Header>
         <div className="flex items-center gap-3 px-1 py-1">
           <Avatar className="size-9">
-            <Avatar.Image
-              alt="Kate Moore"
-              src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/blue-light.jpg"
-            />
-            <Avatar.Fallback>KM</Avatar.Fallback>
+            <Avatar.Fallback>{initials}</Avatar.Fallback>
           </Avatar>
           <div className="flex min-w-0 flex-col" data-sidebar="label">
-            <span className="text-foreground text-sm font-medium leading-tight">
-              Kate Moore
+            <span className="text-foreground truncate text-sm font-medium leading-tight">
+              {displayName}
             </span>
-            <span className="text-muted text-xs font-medium leading-tight">
-              Admin
+            <span className="text-muted truncate text-xs font-medium leading-tight">
+              {email}
             </span>
           </div>
         </div>
