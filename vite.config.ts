@@ -11,7 +11,9 @@ const config = defineConfig({
   plugins: [
     devtools(),
     tailwindcss(),
-    tanstackStart({ prerender: { enabled: true, crawlLinks: true } }),
+    tanstackStart({
+      prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: false },
+    }),
     viteReact(),
   ],
   ssr: { noExternal: ["@gravity-ui/icons"] },
