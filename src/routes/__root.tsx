@@ -25,20 +25,12 @@ export const Route = createRootRoute({
         href: appCss,
       },
     ],
-    scripts: [
-      {
-        children: `(function(){try{var t=localStorage.getItem("theme");if(!t||t==="system"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}var d=document.documentElement;d.classList.add(t);d.dataset.theme=t;}catch(e){}})();`,
-      },
-    ],
   }),
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  useTheme(
-    (typeof window !== "undefined" && localStorage?.getItem("theme")) ||
-      "system",
-  )
+  useTheme()
 
   db.useAuth()
 
@@ -50,6 +42,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     >
       <head>
         <HeadContent />
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static theme init script, no user input
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("heroui-theme");if(!t||t==="system"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}var d=document.documentElement;d.classList.add(t);d.dataset.theme=t;}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="font-sans antialiased">
         {children}
