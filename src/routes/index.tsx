@@ -1,13 +1,13 @@
-import { Button, Card } from "@heroui/react"
-import { createFileRoute, Link } from "@tanstack/react-router"
 import {
   ArrowRight,
   Clock,
   Database,
-  Github,
   HardDrive,
   Shield,
-} from "lucide-react"
+  Star,
+} from "@gravity-ui/icons"
+import { Button, Card } from "@heroui/react"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { Logo } from "#/components/logo"
 
 const navLinks = ["Product", "Pricing", "Docs", "About"]
@@ -62,7 +62,7 @@ function Home() {
 
           <div className="flex items-center gap-3">
             <Button size="sm" variant="secondary">
-              <Github size={16} />
+              <Star size={16} />
               Star us
             </Button>
             <Link to="/dashboard" className="button button--primary">

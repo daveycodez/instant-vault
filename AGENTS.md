@@ -13,6 +13,10 @@ Before editing files for a substantial task:
 
 When doing data fetching from the client, always use the lofi object. `lofi.useFindMany`, `lofi.useFindUnique`, `lofi.useFindFirst` all follow Prisma Client API options syntax with a custom includes option. `lofi.updateItem`, `lofi.deleteItem`, `lofi.insertItem` are all used for mutations. They are optimistic, no loaders.
 
+## Icons
+
+`@gravity-ui/icons`
+
 ## Package Manager
 
 This workspace uses **bun**.

@@ -1,3 +1,4 @@
+import { Plus, TrashBin } from "@gravity-ui/icons"
 import {
   Button,
   Card,
@@ -8,7 +9,6 @@ import {
   TextField,
 } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
-import { Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { lofi } from "#/db/lofi"
 
@@ -113,7 +113,7 @@ function Todos() {
                     variant="ghost"
                     onPress={() => deleteTodo(todo.id)}
                   >
-                    <Trash2 size={16} />
+                    <TrashBin size={16} />
                   </Button>
                 </div>
               ))}
