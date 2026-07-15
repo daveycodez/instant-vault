@@ -7,7 +7,7 @@ const navLinks = ["Product", "Pricing", "Docs", "About"]
 
 export function HomeHeader() {
   return (
-    <header className="sticky top-0 z-50 flex justify-center border-b border-border bg-white px-6">
+    <header className="sticky top-0 z-50 flex justify-center border-b border-border bg-surface px-6">
       <div className="flex w-full max-w-6xl items-center justify-between py-4">
         <Link to="/" className="flex items-center gap-2">
           <Logo className="size-5" />

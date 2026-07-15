@@ -1,4 +1,4 @@
-import { Toast } from "@heroui/react"
+import { Toast, useTheme } from "@heroui/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
@@ -25,15 +25,29 @@ export const Route = createRootRoute({
         href: appCss,
       },
     ],
+    scripts: [
+      {
+        children: `(function(){try{var t=localStorage.getItem("theme");if(!t||t==="system"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}var d=document.documentElement;d.classList.add(t);d.dataset.theme=t;}catch(e){}})();`,
+      },
+    ],
   }),
   shellComponent: RootDocument,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  useTheme(
+    (typeof window !== "undefined" && localStorage?.getItem("theme")) ||
+      "system",
+  )
+
   db.useAuth()
 
   return (
-    <html lang="en" className="bg-background text-foreground">
+    <html
+      lang="en"
+      className="bg-background text-foreground"
+      suppressHydrationWarning
+    >
       <head>
         <HeadContent />
       </head>
