@@ -42,7 +42,7 @@ function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
-      <header className="flex justify-center bg-white px-6">
+      <header className="sticky top-0 z-50 flex justify-center bg-white px-6">
         <div className="flex w-full max-w-6xl items-center justify-between py-4">
           <div className="flex items-center gap-2">
             <Logo className="size-5" />
