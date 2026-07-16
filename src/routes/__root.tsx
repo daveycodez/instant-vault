@@ -1,7 +1,8 @@
-import { Toast, useTheme } from "@heroui/react"
+import { Toast } from "@heroui/react"
 import { TanStackDevtools } from "@tanstack/react-devtools"
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
+import { ThemeProvider } from "../components/theme-provider"
 import { db } from "../db/db"
 import appCss from "../styles/app.css?url"
 
@@ -30,8 +31,6 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
-  useTheme()
-
   db.useAuth()
 
   return (
@@ -42,15 +41,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     >
       <head>
         <HeadContent />
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: static theme init script, no user input
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("heroui-theme");if(!t||t==="system"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}var d=document.documentElement;d.classList.add(t);d.dataset.theme=t;}catch(e){}})();`,
-          }}
-        />
       </head>
       <body className="font-sans antialiased">
-        {children}
+        <ThemeProvider disableTransitionOnChange>{children}</ThemeProvider>
         <Toast.Provider />
         <TanStackDevtools
           config={{

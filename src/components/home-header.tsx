@@ -1,7 +1,8 @@
 import { LogoGithub } from "@gravity-ui/icons"
 import { Button, buttonVariants } from "@heroui/react"
 import { Link } from "@tanstack/react-router"
-import { Logo } from "#/components/logo"
+import { ThemeToggle } from "@/components/dashboard/theme-toggle"
+import { Logo } from "@/components/logo"
 
 const navLinks = ["Product", "Pricing", "Docs", "About"]
 
@@ -25,6 +26,8 @@ export function HomeHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
+
           <a
             href="https://github.com/daveycodez/instant-vault"
             target="_blank"

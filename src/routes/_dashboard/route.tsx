@@ -1,9 +1,9 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
-import { AppShell } from "#/components/dashboard/app-shell"
-import { HomeFooter } from "#/components/home-footer"
-import { HomeHeader } from "#/components/home-header"
-import { LoginForm } from "#/components/login-form"
-import { db } from "#/db/db"
+import { AppShell } from "@/components/dashboard/app-shell"
+import { HomeFooter } from "@/components/home-footer"
+import { HomeHeader } from "@/components/home-header"
+import { LoginForm } from "@/components/login-form"
+import { db } from "@/db/db"
 
 export const Route = createFileRoute("/_dashboard")({
   component: DashboardLayout,

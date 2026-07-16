@@ -9,8 +9,8 @@ import {
   toast,
 } from "@heroui/react"
 import { type SyntheticEvent, useState } from "react"
-import { db } from "#/db/db"
-import { createApp } from "#/server/mutations.functions"
+import { db } from "@/db/db"
+import { createApp } from "@/server/mutations.functions"
 
 const FORM_ID = "add-app-form"
 

@@ -10,7 +10,7 @@ import {
 } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
-import { lofi } from "#/db/lofi"
+import { lofi } from "@/db/lofi"
 
 export const Route = createFileRoute("/_home/todos")({ component: Todos })
 

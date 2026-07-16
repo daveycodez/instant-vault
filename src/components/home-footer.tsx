@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { Logo } from "#/components/logo"
+import { Logo } from "@/components/logo"
 
 export function HomeFooter() {
   return (

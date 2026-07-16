@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router"
-import { HomeFooter } from "#/components/home-footer"
-import { HomeHeader } from "#/components/home-header"
+import { HomeFooter } from "@/components/home-footer"
+import { HomeHeader } from "@/components/home-header"
 
 export const Route = createFileRoute("/_home")({
   component: HomeLayout,

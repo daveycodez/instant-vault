@@ -1,6 +1,6 @@
 import { Avatar, Chip } from "@heroui/react"
 import { Sidebar } from "@heroui-pro/react"
-import { db } from "#/db/db"
+import { db } from "@/db/db"
 import type { NavItem } from "./nav-items"
 
 import { FOOTER_ITEMS, NAV_ITEMS } from "./nav-items"

@@ -1,9 +1,9 @@
 import { Bucket } from "@gravity-ui/icons"
 import { EmptyState, Table } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
-import { AddBucketDialog } from "#/components/dashboard/add-bucket-dialog"
-import { db } from "#/db/db"
-import { lofi } from "#/db/lofi"
+import { AddBucketDialog } from "@/components/dashboard/add-bucket-dialog"
+import { db } from "@/db/db"
+import { lofi } from "@/db/lofi"
 
 export const Route = createFileRoute("/_dashboard/dashboard/buckets")({
   component: BucketsPage,

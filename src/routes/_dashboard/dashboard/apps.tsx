@@ -10,11 +10,11 @@ import {
 } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
-import { AddAppDialog } from "#/components/dashboard/add-app-dialog"
-import { IconButton } from "#/components/dashboard/icon-button"
-import { db } from "#/db/db"
-import { lofi } from "#/db/lofi"
-import { setAppPaused } from "#/server/mutations.functions"
+import { AddAppDialog } from "@/components/dashboard/add-app-dialog"
+import { IconButton } from "@/components/dashboard/icon-button"
+import { db } from "@/db/db"
+import { lofi } from "@/db/lofi"
+import { setAppPaused } from "@/server/mutations.functions"
 
 export const Route = createFileRoute("/_dashboard/dashboard/apps")({
   component: AppsPage,

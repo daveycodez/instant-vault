@@ -1,7 +1,7 @@
 import { Spinner, toast } from "@heroui/react"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useEffect } from "react"
-import { db } from "#/db/db"
+import { db } from "@/db/db"
 
 export const Route = createFileRoute("/_home/logout")({
   component: LogoutPage,

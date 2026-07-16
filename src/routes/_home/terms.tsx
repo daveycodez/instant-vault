@@ -15,7 +15,7 @@ function TermsPage() {
 
       <Separator className="my-8" />
 
-      <div className="prose prose-neutral max-w-none space-y-8">
+      <div className="space-y-8">
         <section>
           <h2 className="font-mono text-xl font-semibold">
             1. Acceptance of Terms

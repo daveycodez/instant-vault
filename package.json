@@ -2,9 +2,6 @@
   "name": "instant-vault",
   "private": true,
   "type": "module",
-  "imports": {
-    "#/*": "./src/*"
-  },
   "scripts": {
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
@@ -30,9 +27,7 @@
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
-    "@tanstack/react-router-ssr-query": "latest",
     "@tanstack/react-start": "latest",
-    "@tanstack/router-plugin": "^1.132.0",
     "@tiptap/core": ">=3.23.6",
     "@tiptap/extension-link": ">=3.23.6",
     "@tiptap/extension-underline": ">=3.23.6",
@@ -63,16 +58,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.3",
-    "@tailwindcss/typography": "^0.5.16",
     "@tanstack/devtools-vite": "latest",
     "@tanstack/router-cli": "^1.132.0",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^16.3.0",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
-    "jsdom": "^29.1.1",
     "typescript": "^7.0.2",
     "vite": "^8.0.0",
     "vitest": "^4.1.5"

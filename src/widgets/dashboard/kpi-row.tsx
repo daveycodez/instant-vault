@@ -1,6 +1,6 @@
 import { KPI } from "@heroui-pro/react"
 
-import { STATS_CARDS } from "#/data/dashboard/sales"
+import { STATS_CARDS } from "@/data/dashboard/sales"
 
 export function KpiRow() {
   return (

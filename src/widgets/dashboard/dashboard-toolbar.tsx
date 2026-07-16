@@ -1,7 +1,7 @@
 import { ArrowsRotateLeft, Calendar, ChevronDown } from "@gravity-ui/icons"
 import { Button, ButtonGroup, Dropdown, Label, Tabs } from "@heroui/react"
 
-import { IconButton } from "#/components/dashboard/icon-button"
+import { IconButton } from "@/components/dashboard/icon-button"
 
 export function DashboardToolbar() {
   return (

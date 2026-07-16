@@ -1,6 +1,6 @@
 import { Eye, Pencil, TrashBin } from "@gravity-ui/icons"
 
-import { IconButton } from "#/components/dashboard/icon-button"
+import { IconButton } from "@/components/dashboard/icon-button"
 
 export interface RowActionsProps {
   employeeId: string
