@@ -9,10 +9,6 @@ Before editing files for a substantial task:
 - Multiple matches: prefer the most specific local skill for the package or concern you are changing; load additional skills only when the task spans multiple packages or concerns.
 <!-- intent-skills:end -->
 
-## Client Local-First Database
-
-When doing data fetching from the client, always use the lofi object. `lofi.useFindMany`, `lofi.useFindUnique`, `lofi.useFindFirst` all follow Prisma Client API options syntax with a custom includes option. `lofi.updateItem`, `lofi.deleteItem`, `lofi.insertItem` are all used for mutations. They are optimistic, no loaders.
-
 ## Icons
 
 `@gravity-ui/icons`
@@ -29,11 +25,7 @@ When using third party libraries, use Context7 MCP to look up the docs.
 
 Before completing any task, run:
 
-```
-bun check --write
-```
-
-This runs `biome check --write` which handles both formatting and linting with auto-fixes in a single pass. Both must pass clean.
+`biome check --write` which handles both formatting and linting with auto-fixes in a single pass. Both must pass clean.
 
 ## GitHub Copilot Instructions
 
@@ -43,10 +35,6 @@ When generating commit messages, always use the Conventional Commits format:
 - Follow with a colon and space, then a lowercase description
 - Example: feat(auth): add password reset flow
 - Example: fix: resolve null pointer in user hook
-
-Act as a world-class senior frontend engineer with deep expertise in InstantDB
-and UI/UX design. Your primary goal is to generate complete and functional apps
-with excellent visual aesthetics using InstantDB as the backend.
 
 Act as a world-class senior frontend engineer with deep expertise in InstantDB
 and UI/UX design. Your primary goal is to generate complete and functional apps
