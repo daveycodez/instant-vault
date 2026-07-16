@@ -8,33 +8,41 @@ import {
   Spinner,
   TextField,
 } from "@heroui/react"
+import { id } from "@instantdb/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
-import { lofi } from "@/db/lofi"
+import { db } from "@/db/db"
 
 export const Route = createFileRoute("/_home/todos")({ component: Todos })
 
 function addTodo(text: string) {
-  lofi.insertItem("todos", {
-    id: crypto.randomUUID(),
-    text,
-    done: false,
-  })
+  const now = new Date()
+  db.transact(
+    db.tx.todos[id()].create({
+      text,
+      done: false,
+      createdAt: now,
+      updatedAt: now,
+    }),
+  )
 }
 
 function toggleTodo(todoId: string, done: boolean) {
-  lofi.updateItem("todos", todoId, { done: !done })
+  db.transact(
+    db.tx.todos[todoId].update({ done: !done, updatedAt: new Date() }),
+  )
 }
 
 function deleteTodo(todoId: string) {
-  lofi.deleteItem("todos", todoId)
+  db.transact(db.tx.todos[todoId].delete())
 }
 
 function Todos() {
   const [text, setText] = useState("")
-  const { isLoading, status, isError, data } = lofi.useFindMany("todos", {
-    orderBy: { createdAt: "desc" },
+  const { isLoading, error, data } = db.useQuery({
+    todos: { $: { order: { createdAt: "desc" } } },
   })
+  const todos = data?.todos
 
   const submit = () => {
     const trimmed = text.trim()
@@ -71,13 +79,13 @@ function Todos() {
           <Card.Content>
             {isLoading ? (
               <Spinner size="sm" />
-            ) : status === "error" || isError ? (
+            ) : error ? (
               <p className="text-sm text-danger">
                 Failed to load todos. Try refreshing.
               </p>
             ) : (
               <ul className="space-y-2">
-                {data?.map((todo) => (
+                {todos?.map((todo) => (
                   <li
                     key={todo.id}
                     className="flex items-center justify-between gap-3 rounded-lg border border-border p-3"

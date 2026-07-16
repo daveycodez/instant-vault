@@ -4,7 +4,12 @@ import { Link } from "@tanstack/react-router"
 import { ThemeToggle } from "@/components/dashboard/theme-toggle"
 import { Logo } from "@/components/logo"
 
-const navLinks = ["Product", "Pricing", "Docs", "About"]
+const navLinks: { label: string; to?: string }[] = [
+  { label: "Product" },
+  { label: "Pricing", to: "/pricing" },
+  { label: "Docs" },
+  { label: "About" },
+]
 
 export function HomeHeader() {
   return (
@@ -18,11 +23,21 @@ export function HomeHeader() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map((label) => (
-            <Button key={label} size="sm" variant="ghost">
-              {label}
-            </Button>
-          ))}
+          {navLinks.map(({ label, to }) =>
+            to ? (
+              <Link
+                key={label}
+                to={to}
+                className={buttonVariants({ size: "sm", variant: "ghost" })}
+              >
+                {label}
+              </Link>
+            ) : (
+              <Button key={label} size="sm" variant="ghost">
+                {label}
+              </Button>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-3">

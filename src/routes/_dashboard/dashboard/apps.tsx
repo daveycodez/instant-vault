@@ -13,7 +13,6 @@ import { useState } from "react"
 import { AddAppDialog } from "@/components/dashboard/add-app-dialog"
 import { IconButton } from "@/components/dashboard/icon-button"
 import { db } from "@/db/db"
-import { lofi } from "@/db/lofi"
 import { setAppPaused } from "@/server/mutations.functions"
 
 export const Route = createFileRoute("/_dashboard/dashboard/apps")({
@@ -102,12 +101,19 @@ function AppRow({ app, token }: { app: AppItem; token: string | undefined }) {
 
 function AppsPage() {
   const { user } = db.useAuth()
-  const { data: apps } = lofi.useFindMany(
-    "apps",
+  const { data } = db.useQuery(
     user
-      ? { where: { userId: user.id }, orderBy: { createdAt: "desc" } }
-      : false,
+      ? {
+          apps: {
+            $: {
+              where: { userId: user.id },
+              order: { createdAt: "desc" },
+            },
+          },
+        }
+      : null,
   )
+  const apps = data?.apps
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 pb-10 pt-4">

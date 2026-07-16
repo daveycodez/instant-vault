@@ -15,6 +15,7 @@ import { Route as HomeIndexRouteImport } from './routes/_home/index'
 import { Route as HomeTodosRouteImport } from './routes/_home/todos'
 import { Route as HomeTermsRouteImport } from './routes/_home/terms'
 import { Route as HomePrivacyRouteImport } from './routes/_home/privacy'
+import { Route as HomePricingRouteImport } from './routes/_home/pricing'
 import { Route as HomeLogoutRouteImport } from './routes/_home/logout'
 import { Route as DashboardDashboardIndexRouteImport } from './routes/_dashboard/dashboard/index'
 import { Route as DashboardDashboardSettingsRouteImport } from './routes/_dashboard/dashboard/settings'
@@ -49,6 +50,11 @@ const HomePrivacyRoute = HomePrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => HomeRouteRoute,
 } as any)
+const HomePricingRoute = HomePricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => HomeRouteRoute,
+} as any)
 const HomeLogoutRoute = HomeLogoutRouteImport.update({
   id: '/logout',
   path: '/logout',
@@ -80,6 +86,7 @@ const DashboardDashboardAppsRoute = DashboardDashboardAppsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof HomeIndexRoute
   '/logout': typeof HomeLogoutRoute
+  '/pricing': typeof HomePricingRoute
   '/privacy': typeof HomePrivacyRoute
   '/terms': typeof HomeTermsRoute
   '/todos': typeof HomeTodosRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof HomeIndexRoute
   '/logout': typeof HomeLogoutRoute
+  '/pricing': typeof HomePricingRoute
   '/privacy': typeof HomePrivacyRoute
   '/terms': typeof HomeTermsRoute
   '/todos': typeof HomeTodosRoute
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/_dashboard': typeof DashboardRouteRouteWithChildren
   '/_home': typeof HomeRouteRouteWithChildren
   '/_home/logout': typeof HomeLogoutRoute
+  '/_home/pricing': typeof HomePricingRoute
   '/_home/privacy': typeof HomePrivacyRoute
   '/_home/terms': typeof HomeTermsRoute
   '/_home/todos': typeof HomeTodosRoute
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/logout'
+    | '/pricing'
     | '/privacy'
     | '/terms'
     | '/todos'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/logout'
+    | '/pricing'
     | '/privacy'
     | '/terms'
     | '/todos'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/_dashboard'
     | '/_home'
     | '/_home/logout'
+    | '/_home/pricing'
     | '/_home/privacy'
     | '/_home/terms'
     | '/_home/todos'
@@ -198,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof HomePrivacyRouteImport
+      parentRoute: typeof HomeRouteRoute
+    }
+    '/_home/pricing': {
+      id: '/_home/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof HomePricingRouteImport
       parentRoute: typeof HomeRouteRoute
     }
     '/_home/logout': {
@@ -258,6 +277,7 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 
 interface HomeRouteRouteChildren {
   HomeLogoutRoute: typeof HomeLogoutRoute
+  HomePricingRoute: typeof HomePricingRoute
   HomePrivacyRoute: typeof HomePrivacyRoute
   HomeTermsRoute: typeof HomeTermsRoute
   HomeTodosRoute: typeof HomeTodosRoute
@@ -266,6 +286,7 @@ interface HomeRouteRouteChildren {
 
 const HomeRouteRouteChildren: HomeRouteRouteChildren = {
   HomeLogoutRoute: HomeLogoutRoute,
+  HomePricingRoute: HomePricingRoute,
   HomePrivacyRoute: HomePrivacyRoute,
   HomeTermsRoute: HomeTermsRoute,
   HomeTodosRoute: HomeTodosRoute,

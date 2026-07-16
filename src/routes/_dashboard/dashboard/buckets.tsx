@@ -3,7 +3,6 @@ import { EmptyState, Table } from "@heroui/react"
 import { createFileRoute } from "@tanstack/react-router"
 import { AddBucketDialog } from "@/components/dashboard/add-bucket-dialog"
 import { db } from "@/db/db"
-import { lofi } from "@/db/lofi"
 
 export const Route = createFileRoute("/_dashboard/dashboard/buckets")({
   component: BucketsPage,
@@ -11,12 +10,19 @@ export const Route = createFileRoute("/_dashboard/dashboard/buckets")({
 
 function BucketsPage() {
   const { user } = db.useAuth()
-  const { data: buckets } = lofi.useFindMany(
-    "buckets",
+  const { data } = db.useQuery(
     user
-      ? { where: { userId: user.id }, orderBy: { createdAt: "desc" } }
-      : false,
+      ? {
+          buckets: {
+            $: {
+              where: { userId: user.id },
+              order: { createdAt: "desc" },
+            },
+          },
+        }
+      : null,
   )
+  const buckets = data?.buckets
 
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 pb-10 pt-4">
