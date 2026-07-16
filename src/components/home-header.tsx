@@ -16,10 +16,7 @@ export function HomeHeader() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/pricing"
-            className={buttonVariants({ size: "sm", variant: "ghost" })}
-          >
+          <Link to="/pricing" className="link text-sm me-1">
             Pricing
           </Link>
 
@@ -35,11 +32,13 @@ export function HomeHeader() {
             <LogoGithub className="me-[0.5px]" />
           </a>
 
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <Link to="/dashboard" className={buttonVariants()}>
+              Dashboard
+            </Link>
 
-          <Link to="/dashboard" className={buttonVariants()}>
-            Dashboard
-          </Link>
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

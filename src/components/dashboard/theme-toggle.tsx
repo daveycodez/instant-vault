@@ -19,7 +19,7 @@ export function ThemeToggle() {
 
   return (
     <Dropdown>
-      <Button isIconOnly aria-label="Change theme" size="sm" variant="tertiary">
+      <Button isIconOnly aria-label="Change theme" size="sm" variant="ghost">
         <Sun className="size-4 dark:hidden" />
         <Moon className="hidden size-4 dark:block" />
       </Button>
