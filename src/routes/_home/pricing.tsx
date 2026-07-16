@@ -55,7 +55,7 @@ const tiers = [
 
 function PricingPage() {
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 md:py-24">
+    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12 md:py-16">
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="flex items-center gap-2 rounded-full bg-surface-secondary px-4 py-1.5">
           <HardDrive className="text-muted" />
@@ -70,7 +70,7 @@ function PricingPage() {
         </p>
       </div>
 
-      <div className="mx-auto mt-16 grid w-full max-w-3xl gap-6 md:grid-cols-2">
+      <div className="mx-auto mt-12 grid w-full max-w-3xl gap-6 md:grid-cols-2">
         {tiers.map((tier) => {
           const Icon = tier.icon
           return (
