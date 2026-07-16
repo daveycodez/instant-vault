@@ -1,15 +1,8 @@
 import { LogoGithub } from "@gravity-ui/icons"
-import { Button, buttonVariants } from "@heroui/react"
+import { buttonVariants } from "@heroui/react"
 import { Link } from "@tanstack/react-router"
 import { ThemeToggle } from "@/components/dashboard/theme-toggle"
 import { Logo } from "@/components/logo"
-
-const navLinks: { label: string; to?: string }[] = [
-  { label: "Product" },
-  { label: "Pricing", to: "/pricing" },
-  { label: "Docs" },
-  { label: "About" },
-]
 
 export function HomeHeader() {
   return (
@@ -22,26 +15,13 @@ export function HomeHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {navLinks.map(({ label, to }) =>
-            to ? (
-              <Link
-                key={label}
-                to={to}
-                className={buttonVariants({ size: "sm", variant: "ghost" })}
-              >
-                {label}
-              </Link>
-            ) : (
-              <Button key={label} size="sm" variant="ghost">
-                {label}
-              </Button>
-            ),
-          )}
-        </nav>
-
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <Link
+            to="/pricing"
+            className={buttonVariants({ size: "sm", variant: "ghost" })}
+          >
+            Pricing
+          </Link>
 
           <a
             href="https://github.com/daveycodez/instant-vault"
@@ -54,6 +34,8 @@ export function HomeHeader() {
           >
             <LogoGithub className="me-[0.5px]" />
           </a>
+
+          <ThemeToggle />
 
           <Link to="/dashboard" className={buttonVariants()}>
             Dashboard

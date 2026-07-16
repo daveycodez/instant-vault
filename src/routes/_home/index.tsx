@@ -3,9 +3,10 @@ import {
   Clock,
   Database,
   HardDrive,
+  LogoGithub,
   Shield,
 } from "@gravity-ui/icons"
-import { Button, Card } from "@heroui/react"
+import { buttonVariants, Card } from "@heroui/react"
 import { createFileRoute, Link } from "@tanstack/react-router"
 
 export const Route = createFileRoute("/_home/")({ component: Home })
@@ -61,9 +62,15 @@ function Home() {
               Get Started
               <ArrowRight />
             </Link>
-            <Button variant="secondary" size="lg">
-              Learn More
-            </Button>
+            <a
+              href="https://github.com/daveycodez/instant-vault"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: "secondary", size: "lg" })}
+            >
+              <LogoGithub />
+              GitHub
+            </a>
           </div>
         </div>
       </section>
