@@ -16,7 +16,7 @@ export function HomeHeader() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <Link to="/pricing" className="link text-sm me-1">
+          <Link to="/pricing" className="link text-sm me-1 no-underline">
             Pricing
           </Link>
 
