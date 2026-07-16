@@ -6,16 +6,17 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite"
 import viteReact from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
-  plugins: [
-    devtools(),
-    tailwindcss(),
-    tanstackStart({
-      prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: false },
-    }),
-    viteReact(),
-  ],
+  plugins: [devtools(), tailwindcss(), tanstackStart({
+    prerender: { enabled: true, crawlLinks: true, autoSubfolderIndex: false },
+  }), viteReact(), cloudflare({
+    viteEnvironment: {
+      name: "ssr"
+    }
+  })],
   ssr: { noExternal: ["@gravity-ui/icons"] },
 })
 
