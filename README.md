@@ -1,204 +1,104 @@
-Welcome to your new TanStack Start app! 
+# instantVault
 
-# Getting Started
+Secure, automated backups for your [InstantDB](https://instantdb.com) databases. Connect an app, point it at storage, and never lose your data.
 
-To run this application:
+instantVault lets you register your InstantDB apps, configure where their backups live — **bring your own S3-compatible bucket** or use **managed R2** — and manage it all from a single dashboard. Credentials (admin tokens and storage keys) are encrypted at rest with AES-256-GCM.
+
+- 🗄️ **Connect InstantDB apps** — register apps by ID + admin token, validated on save
+- 🪣 **Bring your own storage** — any S3-compatible bucket (R2, S3, B2, …), or let us host it
+- 🔐 **Encrypted credentials** — tokens and keys are symmetrically encrypted before they touch the database
+- ⏸️ **Full control** — pause, resume, and monitor apps from the dashboard
+
+See [pricing](/pricing): free to self-host, or $5/month managed with a 30-day trial.
+
+## Tech Stack
+
+- **[TanStack Start](https://tanstack.com/start)** — full-stack React 19 framework with file-based routing and server functions
+- **[InstantDB](https://instantdb.com)** — the app's own real-time database (`@instantdb/react` on the client, `@instantdb/admin` on the server)
+- **[HeroUI v3](https://heroui.com)** + **[Tailwind CSS v4](https://tailwindcss.com)** — UI components and styling
+- **[aws4fetch](https://github.com/mhart/aws4fetch)** — signed requests to S3-compatible storage
+- **[Biome](https://biomejs.dev)** — linting and formatting
+- **[Vitest](https://vitest.dev)** — testing
+
+## Getting Started
+
+### Prerequisites
+
+- [Bun](https://bun.sh)
+- An InstantDB app — create one free at [instantdb.com](https://instantdb.com/dash)
+
+### Install
 
 ```bash
 bun install
-bun --bun run dev
 ```
 
-# Building For Production
+### Configure environment
 
-To build this application for production:
+Copy the example env file and fill in your values:
 
 ```bash
-bun --bun run build
+cp .env.example .env
 ```
 
-## Testing
+| Variable | Scope | Description |
+| --- | --- | --- |
+| `VITE_INSTANT_APP_ID` | client | Your InstantDB app ID (public) |
+| `INSTANT_APP_ID` | server | Same app ID, for the Admin SDK |
+| `INSTANT_ADMIN_TOKEN` | server | InstantDB admin token — keep secret |
+| `INSTANT_VAULT_SECRET` | server | Secret used to derive the AES-256-GCM key for encrypting stored credentials — keep secret |
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+### Push the schema
+
+The schema and permissions live in [`src/instant.schema.ts`](src/instant.schema.ts) and [`src/instant.perms.ts`](src/instant.perms.ts). Push them to your app:
 
 ```bash
-bun --bun run test
+npx instant-cli push schema --yes
+npx instant-cli push perms --yes
 ```
 
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles/app.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
+### Run
 
 ```bash
-bun --bun run lint
-bun --bun run format
-bun --bun run check
+bun run dev
 ```
 
+The app runs at [http://localhost:3000](http://localhost:3000).
 
+## Scripts
 
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
+```bash
+bun run dev              # start the dev server on port 3000
+bun run build            # build for production
+bun run preview          # preview the production build
+bun run test             # run tests with Vitest
+bun run generate-routes  # regenerate the TanStack route tree
+bun run check            # lint + format with Biome
 ```
 
-Then anywhere in your JSX you can use it like so:
+Before committing, run `bun check --write` to auto-fix formatting and lint issues in a single pass.
 
-```tsx
-<Link to="/about">About</Link>
+## Project Structure
+
+```
+src/
+├── routes/
+│   ├── _home/          # marketing pages (landing, pricing, privacy, terms)
+│   ├── _dashboard/     # authenticated app (apps, buckets, settings)
+│   └── api/            # API routes
+├── server/             # server functions, Admin SDK, credential encryption
+├── components/         # shared and dashboard UI components
+├── db/                 # client-side InstantDB init
+├── instant.schema.ts   # InstantDB schema (apps, buckets, users, …)
+└── instant.perms.ts    # InstantDB permissions
 ```
 
-This will create a link that will navigate to the `/about` route.
+## How it works
 
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
+- **Client reads** go through InstantDB's real-time React hooks — no loaders, optimistic by default.
+- **Privileged writes** (connecting an app, saving storage credentials) run as TanStack **server functions** that verify the caller's InstantDB refresh token, validate the credentials against the live service, and encrypt secrets via [`crypto.server.ts`](src/server/crypto.server.ts) before persisting them with the Admin SDK.
+- **Ownership** is always derived from the verified token server-side — a client-supplied user ID is never trusted.
 
-### Using A Layout
+## License
 
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+MIT — fork it, ship it.
