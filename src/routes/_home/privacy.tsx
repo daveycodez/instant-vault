@@ -21,7 +21,7 @@ function PrivacyPage() {
         <section>
           <h2 className="font-mono text-xl font-semibold">1. Overview</h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            instantVault ("we", "our", or "us") is committed to protecting your
+            InstantVault ("we", "our", or "us") is committed to protecting your
             privacy. This Privacy Policy explains how we collect, use, disclose,
             and safeguard your information when you use our backup and restore
             service ("the Service"). By using the Service, you agree to the

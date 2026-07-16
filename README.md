@@ -1,8 +1,8 @@
-# instantVault
+# InstantVault
 
 Secure, automated backups for your [InstantDB](https://instantdb.com) databases. Connect an app, point it at storage, and never lose your data.
 
-instantVault lets you register your InstantDB apps, configure where their backups live — **bring your own S3-compatible bucket** or use **managed R2** — and manage it all from a single dashboard. Credentials (admin tokens and storage keys) are encrypted at rest with AES-256-GCM.
+InstantVault lets you register your InstantDB apps, configure where their backups live — **bring your own S3-compatible bucket** or use **managed R2** — and manage it all from a single dashboard. Credentials (admin tokens and storage keys) are encrypted at rest with AES-256-GCM.
 
 - 🗄️ **Connect InstantDB apps** — register apps by ID + admin token, validated on save
 - 🪣 **Bring your own storage** — any S3-compatible bucket (R2, S3, B2, …), or let us host it

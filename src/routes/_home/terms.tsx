@@ -21,7 +21,7 @@ function TermsPage() {
             1. Acceptance of Terms
           </h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            By accessing or using instantVault ("the Service"), you agree to be
+            By accessing or using InstantVault ("the Service"), you agree to be
             bound by these Terms of Service. If you do not agree to these terms,
             you may not access or use the Service. We reserve the right to
             update or modify these terms at any time without prior notice. Your
@@ -35,7 +35,7 @@ function TermsPage() {
             2. Description of Service
           </h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            instantVault provides automated backup and restore solutions for
+            InstantVault provides automated backup and restore solutions for
             InstantDB databases. The Service allows users to create snapshots,
             schedule recurring backups, and restore data to any connected
             database instance.
@@ -83,7 +83,7 @@ function TermsPage() {
           </h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
             The Service and its original content, features, and functionality
-            are owned by instantVault and are protected by international
+            are owned by InstantVault and are protected by international
             copyright, trademark, and other intellectual property laws. You
             retain all rights to the data you store and back up through the
             Service.
@@ -95,7 +95,7 @@ function TermsPage() {
             7. Limitation of Liability
           </h2>
           <p className="mt-3 leading-relaxed text-muted-foreground">
-            In no event shall instantVault, its officers, directors, employees,
+            In no event shall InstantVault, its officers, directors, employees,
             or agents be liable for any indirect, incidental, special,
             consequential, or punitive damages arising out of your use of or
             inability to use the Service. Our total liability for any claim
